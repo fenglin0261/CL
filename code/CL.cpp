@@ -1,11 +1,17 @@
 ﻿#include <iostream>
 #include <ctime>
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <csignal>
+#include <Windows.h>
+#include <WinBase.h>
+
 
 #pragma warning(disable:4996) 
 
 
 using namespace std;
-
 
 
 // C_Reference
@@ -815,49 +821,673 @@ void C_nested_function()
 //end C_nested_function
 
 // C_this_pointer
-class Box
+//class Box
+//{
+//public:
+//    Box(double l = 2.0, double b = 2.0, double h = 2.0)
+//    {
+//        cout << "Constructor called." << endl;
+//        length = l;
+//        breadth = b;
+//        height = h;
+//    }
+//    double Volume()
+//    {
+//        return length * breadth * height;
+//    }
+//    int compare(Box box)
+//    {
+//        return this->Volume() > box.Volume();
+//    }
+//
+//private:
+//    double length;
+//    double breadth;
+//    double height;
+//};
+//
+//void C_this_pointer()
+//{
+//    Box Box1(3.3, 1.2, 1.5);
+//    Box Box2(8.5, 6.0, 2.0);
+//
+//    if (Box1.compare(Box2))
+//    {
+//        cout << "Box2 is smaller than Box1" << endl;
+//    }
+//    else
+//    {
+//        cout << "Box2 is equal to or langger than Box1" << endl;
+//    }
+//
+//    return;
+//}
+
+//end C_this_pointer
+
+
+// C_pointer_to_class
+//class Box
+//{
+//public:
+//    Box(double l = 2.0, double b = 2.0, double h = 2.0)
+//    {
+//        cout << "Constructor called." << endl;
+//        length = l;
+//        breadth = b;
+//        height = h;
+//    }
+//    double Volume()
+//    {
+//        return length * breadth * height;
+//    }
+//
+//private:
+//    double length;
+//    double breadth;
+//    double height;
+//};
+//
+//void C_pointer_to_class()
+//{
+//    Box Box1(3.3, 1.2, 1.5);
+//    Box Box2(8.5, 6.0, 2.0);
+//
+//    Box* ptrBox;
+//    
+//    ptrBox = &Box1;
+//    cout << "Volume of Box1:" << ptrBox->Volume() << endl;
+//
+//    ptrBox = &Box2;
+//
+//    cout << "Volume of Box2:" << ptrBox->Volume() << endl;
+//
+//    return;
+//}
+// end C_pointer_to_class
+
+
+// C_static_member_of_class
+//class Box
+//{
+//public:
+//    static int objectCount;
+//    Box(double l = 2.0, double b = 2.0, double h = 2.0)
+//    {
+//        cout << "Constructor called." << endl;
+//        length = l;
+//        breadth = b;
+//        height = h;
+//        objectCount++;
+//    }
+//    double Volume()
+//    {
+//        return length * breadth * height;
+//    }
+//
+//private:
+//    double length;
+//    double breadth;
+//    double height;
+//};
+//
+//int Box::objectCount = 0;
+//
+//
+//void C_static_member_of_class()
+//{
+//    Box Box1(3.3, 1.2, 1.5);
+//    Box Box2(8.5, 6.0, 2.0);
+//
+//    cout << "Total objects:" << Box::objectCount << endl;
+//
+//    return;
+//}
+
+// end C_static_member_of_class
+
+// Class_static_function
+//class Box
+//{
+//public:
+//    static int objectCount;
+//
+//    Box(double l = 2.0, double b = 2.0, double h = 2.0)
+//    {
+//        cout << "Constructor called." << endl;
+//        length = l;
+//        breadth = b;
+//        height = h;
+//        objectCount++;
+//    }
+//    double Volume()
+//    {
+//        return length * breadth * height;
+//    }
+//    static int getCount()
+//    {
+//        return objectCount;
+//    }
+//
+//private:
+//    double length;
+//    double breadth;
+//    double height;
+//};
+//
+//int Box::objectCount = 0;
+//
+//
+//void Class_static_function()
+//{
+//    cout << "Initial Stage Count: " << Box::getCount() << endl;
+//
+//    Box Box1(3.3, 1.2, 1.5);
+//    Box Box2(8.5, 6.0, 2.0);
+//
+//    cout << "Final sStage Count:" << Box::getCount() << endl;
+//
+//    return;
+//}
+// end Class_static_function
+
+// C_function_overloading
+//class PrintData
+//{
+//public:
+//    void print(int i)
+//    {
+//        cout << "整数为：" << i << endl;
+//    }
+//    void print(double i)
+//    {
+//        cout << "浮点数为：" << i << endl;
+//    }
+//    void print(char i[])
+//    {
+//        cout << "字符串为：" << i << endl;
+//    }
+//
+//};
+//
+//void C_function_overloading()
+//{
+//    PrintData pd;
+//
+//    pd.print(5);
+//    pd.print(500.263);
+//
+//    char c[] = "Hello C++";
+//    pd.print(c);
+//
+//    return;
+//}
+// end C_function_overloading
+
+// C_operator_overloading
+//class Box
+//{
+//public:
+//    double getVolume(void)
+//    {
+//        return length * breadth * height;
+//    }
+//    void setLength(double len)
+//    {
+//        length = len;
+//    }
+//    void setBreadth(double bre)
+//    {
+//        breadth = bre;
+//    }
+//    void setHeight(double hei)
+//    {
+//        height = hei;
+//    }
+//
+//    Box operator+(const Box& b)
+//    {
+//        Box box;
+//        box.length = b.length + this->length;
+//        box.height = b.height + this->height;
+//        box.breadth = b.breadth + this->breadth;
+//
+//        return box;
+//    }
+//
+//private:
+//    double length;
+//    double breadth;
+//    double height;
+//};
+//void C_operator_overloading()
+//{
+//    Box box1;
+//    Box box2;
+//    Box box3;
+//
+//    double volume = 0.0;
+//
+//    box1.setLength(6.0);
+//    box1.setHeight(5.0);
+//    box1.setBreadth(7.0);
+//
+//    box2.setLength(12.0);
+//    box2.setBreadth(13.0);
+//    box2.setHeight(10.0);
+//
+//
+//    volume = box1.getVolume();
+//    cout << "Volume of Box1 :" << volume << endl;
+//
+//    volume = box2.getVolume();
+//    cout << "Volume of Box2 :" << volume << endl;
+//
+//    box3 = box1 + box2;
+//
+//    volume = box3.getVolume();
+//
+//    cout << "Volume of Box3 :" << volume << endl;
+//
+//    return;
+//}
+// end C_operator_overloading
+
+// C_polymorphism
+//class Shape
+//{
+//protected:
+//    int width, height;
+//public:
+//    Shape(int a = 0, int b = 0)
+//    {
+//        width = a;
+//        height = b;
+//    }
+//    virtual int area() = 0;
+//};
+//
+//class Rectangle :public Shape
+//{
+//public:
+//    Rectangle(int a =0, int b=0):Shape(a, b)
+//    {
+//    }
+//    int area()
+//    {
+//        cout << "Rectangle class area :" << endl;
+//        return (width * height);
+//    }
+//};
+//
+//class Triangle :public Shape
+//{
+//public:
+//    Triangle(int a = 0, int b = 0) :Shape(a, b)
+//    {
+//    }
+//    int area()
+//    {
+//        cout << "Triangle class erea :" << endl;
+//        return (width * height / 2);
+//    }
+//};
+//
+//void C_polymorphism()
+//{
+//    Shape* shape;
+//    Rectangle rec(10, 7);
+//    Triangle tri(10, 5);
+//
+//    shape = &rec;
+//    shape->area();
+//
+//    shape = &tri;
+//    shape->area();
+//
+//    return;
+//}
+// end C_polymorphism
+
+// Data_abstraction
+//class Adder
+//{
+//public:
+//    Adder(int i = 0)
+//    {
+//        total = i;
+//    }
+//    void addNum(int number)
+//    {
+//        total += number;
+//    }
+//    int getTotal()
+//    {
+//        return total;
+//    }
+//
+//private:
+//    int total;
+//};
+//
+//void Data_abstraction()
+//{
+//    Adder a;
+//    a.addNum(10);
+//    a.addNum(20);
+//    a.addNum(30);
+//
+//    cout << "Total " << a.getTotal() << endl;
+//
+//    return;
+//}
+
+// end Data_abstraction
+
+// Abstract_class
+//class Shape
+//{
+//public:
+//    virtual int getArea() = 0;
+//    void setWidth(int w)
+//    {
+//        width = w;
+//    }
+//    void setHeight(int h)
+//    {
+//        height = h;
+//    }
+//protected:
+//    int width;
+//    int height;
+//};
+//
+//class Rectangle :public Shape
+//{
+//public:
+//    int getArea()
+//    {
+//        return (width * height);
+//    }
+//};
+//
+//class Triangle :public Shape
+//{
+//public:
+//    int getArea()
+//    {
+//        return (width * height) / 2;
+//    }
+//};
+//
+//void Abstract_class()
+//{
+//    Rectangle Rect;
+//    Triangle Tri;
+//
+//    Rect.setWidth(5);
+//    Rect.setHeight(7);
+//
+//    cout << "Total Rectangle area: " << Rect.getArea() << endl;
+//
+//    Tri.setWidth(5);
+//    Tri.setHeight(7);
+//
+//    cout << "Total Triangle area: " << Tri.getArea() << endl;
+//
+//    return;
+//}
+// end Abstract_class
+
+
+// Files_and_streams
+void Files_and_streams()
 {
-public:
-    Box(double l = 2.0, double b = 2.0, double h = 2.0)
-    {
-        cout << "Constructor called." << endl;
-        length = l;
-        breadth = b;
-        height = h;
-    }
-    double Volume()
-    {
-        return length * breadth * height;
-    }
-    int compare(Box box)
-    {
-        return this->Volume() > box.Volume();
-    }
+    char data[100];
 
-private:
-    double length;
-    double breadth;
-    double height;
-};
+    ofstream outfile;
+    outfile.open("afile.dat");
 
-void C_this_pointer()
-{
-    Box Box1(3.3, 1.2, 1.5);
-    Box Box2(8.5, 6.0, 2.0);
+    cout << "Writing to the file" << endl;
+    cout << "Enter your name: ";
+    cin.getline(data, 100);
 
-    if (Box1.compare(Box2))
-    {
-        cout << "Box2 is smaller than Box1" << endl;
-    }
-    else
-    {
-        cout << "Box2 is equal to or langger than Box1" << endl;
-    }
+    outfile << data << endl;
+
+    cout << "Enter your age: ";
+    cin >> data;
+    cin.ignore();
+
+    outfile << data << endl;
+
+    outfile.close();
+
+    ifstream infile;
+    infile.open("afile.dat");
+
+    cout << "Reading from the file" << endl;
+    infile >> data;
+
+    cout << data << endl;
+
+    infile >> data;
+
+    cout << data << endl;
+
+    infile.close();
 
     return;
 }
+// end Files_and_streams
 
-//end C_this_pointer
+// Catch_exception
+//double division(int a, int b)
+//{
+//    if (b == 0)
+//    {
+//        throw "Division by zero condidtion";
+//    }
+//    return (a / b);
+//}
+//
+//void Catch_exception()
+//{
+//    int x = 50;
+//    int y = 0;
+//    double z = 0;
+//
+//    try {
+//        z = division(x, y);
+//        cout << z << endl;
+//    }
+//    catch (const char* msg)
+//    {
+//        cerr << msg << endl;
+//    }
+//
+//    return;
+//}
+
+// end Catch_exception
+
+// Define_new_exception
+//struct MyException:public exception
+//{
+//    const char* what() const throw()
+//    {
+//        return "C++ Exception";
+//    }
+//};
+//
+//void Define_new_exception()
+//{
+//    try
+//    {
+//        throw MyException();
+//    }
+//    catch (MyException & e)
+//    {
+//        cout << "MyException caught" << endl;
+//        cout << e.what() << endl;
+//    }
+//    catch (exception& e)
+//    {
+//
+//    }
+//}
+// end Define_new_exception
+
+// Function_template
+//template <typename T>
+//inline T const& Max(T const& a, T const& b)
+//{
+//    return a < b ? b : a;
+//}
+//
+//void Function_template()
+//{
+//    int i = 39;
+//    int j = 20;
+//
+//    cout << "Max(i, j): " << Max(i, j) << endl;
+//
+//    double f1 = 13.5;
+//    double f2 = 20.7;
+//
+//    cout << "Max(f1, f2): " << Max(f1, f2) << endl;
+//
+//    string s1 = "Hello";
+//    string s2 = "World";
+//
+//    cout << "Max(s1, s2): " << Max(s1, s2) << endl;
+//
+//    return;
+//}
+// end Function_template
+
+// Class_template
+//template <class T>
+//class Stack {
+//private:
+//    vector<T> elems;
+//public:
+//    void push(T const&);
+//    void pop();
+//    T top() const;
+//    bool empty() const {
+//        return elems.empty();
+//    }
+//};
+//
+//
+//template <class T>
+//void Stack<T>::push(T const& elem)
+//{
+//    elems.push_back(elem);
+//}
+//
+//template <class T>
+//void Stack<T>::pop()
+//{
+//    if (elems.empty())
+//    {
+//        throw out_of_range("Stack<>::pop():empty stack");
+//    }
+//    elems.pop_back();
+//}
+//
+//template <class T>
+//T Stack<T>::top() const
+//{
+//    if (elems.empty()) {
+//        throw out_of_range("Stack<>::top(): empty stack");
+//    }
+//    return elems.back();
+//}
+//void Class_template()
+//{
+//    try {
+//        Stack<int>  intStack;
+//        Stack<string> stringStack;
+//
+//        intStack.push(7);
+//        cout << intStack.top() << endl;
+//
+//        stringStack.push("hello");
+//        cout << stringStack.top() << endl;
+//        stringStack.pop();
+//        stringStack.pop();
+//    }
+//    catch (exception const& ex) {
+//        cerr << "Exception: " << ex.what() << endl;
+//        return;
+//    }
+//}
+
+// end Class_template
+
+// C_predefined_macro
+void C_predefined_macro()
+{
+    cout << "Value of __LINE__ : " << __LINE__ << endl;
+    cout << "Value of __FILE__ : " << __FILE__ << endl;
+    cout << "Value of __DATE__ : " << __DATE__ << endl;
+    cout << "Value of __TIME__ : " << __TIME__ << endl;
+    
+    return;
+}
+// end C_predefined_macro
+
+// Signal_function
+//void signalHandler(int signum)
+//{
+//    cout << "Interrupt signal(" << signum << ") received." << endl;
+//
+//    exit(signum);
+//}
+//
+//void Signal_function()
+//{
+//    signal(SIGINT, signalHandler);
+//
+//    while (true)
+//    {
+//        cout << "Going to sleep...." << endl;
+//        Sleep(1);
+//    }
+//
+//    return;
+//}
+// end Signal_function
+
+// Raise_function
+//void signalHandle(int sigNum)
+//{
+//    cout << "Interrupt signal (" << sigNum << ") received." << endl;
+//
+//    exit(sigNum);
+//}
+//
+//void Raise_function()
+//{
+//    int i = 0;
+//
+//    signal(SIGINT, signalHandle);
+//
+//    while (++i) {
+//        cout << "Going to sleep...." << endl;
+//        if (i == 3)
+//        {
+//            raise(SIGINT);
+//        }
+//        Sleep(1);
+//    }
+//
+//    return;
+//}
+
+// end Raise_function
+
 int main()
 {
     //C_Reference();
@@ -880,7 +1510,23 @@ int main()
     //C_copy_constructor1();
     //C_copy_constructor2();
     //C_nested_function();
-    C_this_pointer();
+    //C_this_pointer();
+    //C_pointer_to_class();
+    //C_static_member_of_class();
+    //Class_static_function();
+    //C_function_overloading();
+    //C_operator_overloading();
+    //C_polymorphism();
+    //Data_abstraction();
+    //Abstract_class();
+    //Files_and_streams();
+    //Catch_exception();
+    //Define_new_exception();
+    //Function_template();
+    //Class_template();
+    //C_predefined_macro();
+    //Signal_function();
+    //Raise_function();
 
     return 0;
 }
